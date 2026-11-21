@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#050608">
+<title>SURA — ASCII ART STUDIO</title>
+<style>
+:root{--bg:#050608;--panel:#0d1016;--line:#202633;--muted:#8993a5;--accent:#9d70ff;--glow:rgba(157,112,255,.35)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -20%,#1a1230 0%,#090a10 42%,#050608 75%);color:#f5f3ff;font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;min-height:100vh}
+.wrap{max-width:1100px;margin:auto;padding:28px 18px 50px}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:28px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;border:1px solid #554080;border-radius:14px;display:grid;place-items:center;color:#cbb4ff;font-weight:900;box-shadow:0 0 28px var(--glow);letter-spacing:-2px}
+.brand h1{font-size:20px;letter-spacing:5px;margin:0}
+.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}
+.pill{font-size:11px;color:#b9a4ed;border:1px solid #3b3155;border-radius:99px;padding:8px 12px;background:#151020}
+.hero{text-align:center;margin:22px 0 24px}
+.eyebrow{font-size:10px;letter-spacing:4px;color:#a88bdf}
+.hero h2{font-size:clamp(28px,6vw,48px);margin:10px 0 7px;letter-spacing:2px}
+.hero p{color:var(--muted);font-size:13px;margin:0}
+.studio{border:1px solid #252333;background:linear-gradient(145deg,rgba(17,17,27,.96),rgba(8,10,15,.96));border-radius:22px;overflow:hidden;box-shadow:0 25px 80px #0009}
+.stage-top{height:42px;border-bottom:1px solid #242330;display:flex;align-items:center;justify-content:space-between;padding:0 15px;color:#8990a2;font-size:10px;letter-spacing:1px}
+.dots{display:flex;gap:6px}.dots i{width:7px;height:7px;border-radius:50%;background:#514365}.dots i:nth-child(2){background:#75603f}.dots i:nth-child(3){background:#456b59}
+.canvas-wrap{height:min(57vh,510px);min-height:300px;background:#020305;position:relative;display:grid;place-items:center;overflow:hidden}
+canvas{width:100%;height:100%;display:block}
+.scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0px,transparent 3px,#ffffff05 4px);opacity:.3}
+.stage-label{position:absolute;bottom:13px;left:15px;color:#626a7a;font:10px monospace;letter-spacing:2px}
+.controls{padding:18px;display:grid;gap:16px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.section-head b{font-size:12px;letter-spacing:1px}
+.section-head span{color:var(--muted);font-size:10px}
+.presets{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.preset{background:#10131b;border:1px solid #252a38;color:#c4c9d5;border-radius:12px;padding:11px 5px;cursor:pointer;font:inherit;transition:.2s;min-width:0}
+.preset .ico{display:block;font-size:19px;margin-bottom:5px}
+.preset small{font-size:10px}
+.preset.active,.preset:hover{border-color:#9871e8;background:#1a1428;color:#fff;box-shadow:0 0 18px #8052ce26}
+.settings{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.setting{background:#0a0d13;border:1px solid #202633;border-radius:12px;padding:11px}
+.setting label{display:flex;justify-content:space-between;color:#aeb5c4;font-size:10px;margin-bottom:10px}
+.setting output{color:#c9aaff;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:#a17aff}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+.action{border:1px solid #3a3150;background:#171225;color:#eee6ff;border-radius:11px;padding:10px 15px;font-size:11px;cursor:pointer}
+.action.primary{background:linear-gradient(110deg,#8054d8,#bd65bd);border:0;color:white;font-weight:700}
+.action:hover{filter:brightness(1.15)}
+footer{text-align:center;color:#596273;font-size:10px;letter-spacing:2px;margin-top:22px}
+@media(max-width:650px){.wrap{padding:18px 12px 35px}.presets{grid-template-columns:repeat(4,1fr)}.settings{grid-template-columns:1fr}.canvas-wrap{height:390px;min-height:280px}.pill{display:none}.controls{padding:13px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="brand"><div class="logo">S</div><div><h1>SURA</h1><small>ASCII ART STUDIO</small></div></div>
+ <div class="pill">✦ CREATIVE CODE EXPERIENCE</div>
+</header>
+<section class="hero">
+ <div class="eyebrow">GENERATIVE TEXT • MOTION • ART</div>
+ <h2>Art made of characters.</h2>
+ <p>حوّل الحروف والرموز إلى فن ينبض بالحركة.</p>
+</section>
+<main class="studio">
+ <div class="stage-top"><span>● LIVE RENDER</span><div class="dots"><i></i><i></i><i></i></div><span> SURA_ENGINE / 01</span></div>
+ <div class="canvas-wrap"><canvas id="art"></canvas><div class="scan"></div><div class="stage-label" id="stageLabel">HEART.EXE — RUNNING</div></div>
+ <div class="controls">
+  <div class="section-head"><b>اختَر العمل الفني</b><span>SELECT AN ART FORM</span></div>
+  <div class="presets" id="presets">
+   <button class="preset active" data-mode="heart"><span class="ico">♡</span><small>قلب</small></button>
+   <button class="preset" data-mode="rose"><span class="ico">✿</span><small>وردة</small></button>
+   <button class="preset" data-mode="eye"><span class="ico">◉</span><small>عين</small></button>
+   <button class="preset" data-mode="tree"><span class="ico">♣</span><small>شجرة</small></button>
+   <button class="preset" data-mode="person"><span class="ico">♙</span><small>شخص</small></button>
+   <button class="preset" data-mode="wave"><span class="ico">〰</span><small>موجة</small></button>
+   <button class="preset" data-mode="sura"><span class="ico">S</span><small>SURA</small></button>
+  </div>
+  <div class="section-head"><b>إعدادات الحركة</b><span>LIVE PARAMETERS</span></div>
+  <div class="settings">
+   <div class="setting"><label>سرعة الحركة <output id="speedVal">50</output></label><input id="speed" type="range" min="1" max="100" value="50"></div>
+   <div class="setting"><label>كثافة الرموز <output id="densityVal">55</output></label><input id="density" type="range" min="20" max="100" value="55"></div>
+   <div class="setting"><label>سطوع الألوان <output id="glowVal">75</output></label><input id="glow" type="range" min="10" max="100" value="75"></div>
+  </div>
+  <div class="actions"><button class="action primary" id="toggle">Ⅱ إيقاف الحركة</button><button class="action" id="random">✦ عمل عشوائي</button><button class="action" id="download">↓ حفظ الصورة</button></div>
+ </div>
+</main>
+<footer>DESIGNED WITH CODE · MADE FOR SURA</footer>
+</div>
+<script>
+const canvas=document.getElementById('art'),ctx=canvas.getContext('2d');
+let W=900,H=520,t=0,running=true,mode='heart',last=0;
+const chars='SURA01@#$%&*+=-:;.'.split('');
+const labels={heart:'HEART.EXE',rose:'ROSE.EXE',eye:'EYE.EXE',tree:'TREE.EXE',person:'SILHOUETTE.EXE',wave:'WAVE.EXE',sura:'SURA.EXE'};
+function resize(){const r=canvas.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);W=r.width;H=r.height;canvas.width=Math.round(W*d);canvas.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0)}
+new ResizeObserver(resize).observe(canvas);resize();
+function heart(x,y){let a=Math.atan2(y,x),r=Math.hypot(x,y);let f=Math.pow(x*x+y*y-1,3)-x*x*y*y*y;return f<=0}
+function shape(x,y,tm){
+ let pulse=1+.035*Math.sin(tm*2);
+ x/=pulse;
+ if(mode==='heart')return heart(x*1.25,y*1.25);
+ if(mode==='rose'){
+  let a=Math.atan2(y,x),r=Math.hypot(x,y),petal=Math.cos(7*a+Math.sin(tm)*.25);
+  return r<.18+.43*Math.max(0,petal)|| (Math.abs(x)<.035&&y>.05&&y<.9) || (Math.abs(y-(.45+Math.abs(x)*.55))<.035&&Math.abs(x)<.35);
+ }
+ if(mode==='eye'){
+  let inside=(x*x/.82**2+y*y/.34**2)<1;
+  let iris=((x-.08*Math.sin(tm))**2+(y)**2)<.19**2;
+  return inside&&!iris || iris;
+ }
+ if(mode==='tree'){
+  let leaves=((x*x/.68**2+(y+.27)**2/.52**2)<1) || ((x+.3)**2+(y+.12)**2<.25)||((x-.3)**2+(y+.12)**2<.25);
+  let trunk=Math.abs(x)<.065&&y>.1&&y<.88;
+  return leaves||trunk;
+ }
+ if(mode==='person'){
+  let head=(x*x+(y+.58)**2)<.13**2;
+  let body=Math.abs(x)<.10&&y>-.43&&y<.35;
+  let arms=y>-.35&&y<-.2&&Math.abs(x)<.52&&Math.abs(y+.28-Math.abs(x)*.18)<.07;
+  let legs=y>.25&&y<.9&&Math.abs(x)<.36&&Math.abs(x-(y-.25)*.36)<.07 || y>.25&&y<.9&&Math.abs(x+(y-.25)*.36)<.07;
+  return head||body||arms||legs;
+ }
+ if(mode==='wave')return Math.abs(y-(.28*Math.sin(x*7+tm*1.5)+.13*Math.sin(x*13-tm)))<.09;
+ if(mode==='sura'){
+  // stylized block lettering SURA
+  const xx=(x+1)*2, yy=(y+1)*2;
+  const blocks=[
+   [[0,0],[1,0],[0,1],[1,1],[0,2],[1,2],[0,3],[1,3],[0,4],[1,4],[2,4]],
+   [[0,0],[2,0],[0,1],[2,1],[0,2],[1,2],[2,2],[2,3],[2,4],[0,4],[1,4],[2,4]],
+   [[0,0],[2,0],[0,1],[2,1],[0,2],[1,2],[2,2],[0,3],[2,3],[0,4],[2,4]],
+   [[0,0],[1,0],[2,0],[0,1],[2,1],[0,2],[1,2],[2,2],[0,3],[2,3],[0,4],[2,4]]
+  ];
+  for(let k=0;k<4;k++){let ox=.08+k*.48, bx=Math.round((x+1-ox)*5),by=Math.round((y+1)*2.5);if(blocks[k].some(p=>p[0]===bx&&p[1]===by))return true}
+  return false;
+ }
+ return false;
+}
+function draw(ts){
+ if(!running){requestAnimationFrame(draw);return}
+ const speed=+document.getElementById('speed').value/50;
+ if(ts-last<25){requestAnimationFrame(draw);return}last=ts;t+=.018*speed;
+ ctx.fillStyle='rgba(2,3,5,.34)';ctx.fillRect(0,0,W,H);
+ const density=+document.getElementById('density').value;
+ const step=Math.max(7,Math.round(17-density*.085));
+ const cols=Math.ceil(W/step),rows=Math.ceil(H/step);
+ const scale=Math.min(W*.39,H*.43);
+ ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`${step*.88}px monospace`;
+ const glow=+document.getElementById('glow').value/100;
+ for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){
+  let px=i*step,py=j*step;
+  let nx=(px-W/2)/scale,ny=(py-H/2)/scale;
+  let inside=shape(nx,ny,t);
+  let wave=Math.sin(nx*8+ny*5+t*2);
+  let edge=Math.abs(Math.sin(nx*14+ny*11+t));
+  if(!inside && Math.random()>.002)continue;
+  let hue=(275+nx*75+ny*35+wave*35+t*20)%360;
+  let alpha=(.48+edge*.48)*glow;
+  ctx.fillStyle=`hsla(${hue},95%,${inside?65:48}%,${alpha})`;
+  ctx.shadowColor=`hsla(${hue},100%,65%,.8)`;ctx.shadowBlur=inside?8*glow:3;
+  let ch=chars[Math.floor((edge+Math.random()*.5)*chars.length)%chars.length];
+  ctx.fillText(ch,px,py);
+ }
+ ctx.shadowBlur=0;
+ // faint terminal cursor line
+ ctx.fillStyle='#8e75bd';ctx.globalAlpha=.35;ctx.fillRect(18,H-22,Math.max(20,(Math.sin(t)+1)*65),1);ctx.globalAlpha=1;
+ requestAnimationFrame(draw);
+}
+ctx.fillStyle='#020305';ctx.fillRect(0,0,W,H);requestAnimationFrame(draw);
+document.querySelectorAll('.preset').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('.preset').forEach(x=>x.classList.remove('active'));b.classList.add('active');mode=b.dataset.mode;
+ document.getElementById('stageLabel').textContent=labels[mode]+' — RUNNING';
+ ctx.fillStyle='#020305';ctx.fillRect(0,0,W,H);
+}));
+['speed','density','glow'].forEach(id=>document.getElementById(id).addEventListener('input',e=>document.getElementById(id+'Val').textContent=e.target.value));
+document.getElementById('toggle').onclick=()=>{running=!running;document.getElementById('toggle').textContent=running?'Ⅱ إيقاف الحركة':'▶ تشغيل الحركة'};
+document.getElementById('random').onclick=()=>{const all=[...document.querySelectorAll('.preset')];all[Math.floor(Math.random()*all.length)].click()};
+document.getElementById('download').onclick=()=>{const a=document.createElement('a');a.download='SURA-ASCII-ART.png';a.href=canvas.toDataURL('image/png');a.click()};
+</script>
+</body>
+</html>
